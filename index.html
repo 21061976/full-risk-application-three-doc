@@ -1,0 +1,2433 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>כלי מקצועי לניהול סיכונים בפרויקטים</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .workflow {
+            background: #34495e;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .workflow-step {
+            text-align: center;
+            flex: 1;
+            min-width: 200px;
+            margin: 5px;
+        }
+
+        .workflow-step .number {
+            background: #e74c3c;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+        }
+
+        .tab {
+            flex: 1;
+            padding: 16px 15px;
+            background: #f8f9fa;
+            border: none;
+            color: #6c757d;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            border-right: 1px solid #e9ecef;
+            text-transform: none;
+            letter-spacing: 0.2px;
+        }
+
+        .tab:last-child {
+            border-right: none;
+        }
+
+        .tab:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        /* חלק א: הגדרת הפרויקט - אפור רך מאוד */
+        .tab:nth-child(1) {
+            background: linear-gradient(135deg, #adb5bd 0%, #95a5a6 100%);
+            color: white;
+            border-bottom: 3px solid #868e96;
+        }
+
+        .tab:nth-child(1):hover {
+            background: linear-gradient(135deg, #b7bfc7 0%, #a5b5b6 100%);
+            box-shadow: 0 3px 12px rgba(173, 181, 189, 0.25);
+        }
+
+        .tab:nth-child(1).active {
+            background: linear-gradient(135deg, #c1c9d1 0%, #b5c5c6 100%);
+            border-bottom: 3px solid #adb5bd;
+            box-shadow: 0 4px 15px rgba(173, 181, 189, 0.3);
+        }
+
+        /* חלק ב: ניהול סיכונים - אדום רך מאוד */
+        .tab:nth-child(2) {
+            background: linear-gradient(135deg, #f8a5a5 0%, #e67e82 100%);
+            color: white;
+            border-bottom: 3px solid #e07a7a;
+        }
+
+        .tab:nth-child(2):hover {
+            background: linear-gradient(135deg, #f9b5b5 0%, #e68e92 100%);
+            box-shadow: 0 3px 12px rgba(248, 165, 165, 0.25);
+        }
+
+        .tab:nth-child(2).active {
+            background: linear-gradient(135deg, #fac5c5 0%, #e69ea2 100%);
+            border-bottom: 3px solid #f8a5a5;
+            box-shadow: 0 4px 15px rgba(248, 165, 165, 0.3);
+        }
+
+        /* חלק ג: תוכנית התמודדות - כתום רך מאוד */
+        .tab:nth-child(3) {
+            background: linear-gradient(135deg, #fcc468 0%, #f0ad4e 100%);
+            color: white;
+            border-bottom: 3px solid #eea236;
+        }
+
+        .tab:nth-child(3):hover {
+            background: linear-gradient(135deg, #fcd478 0%, #f1bd5e 100%);
+            box-shadow: 0 3px 12px rgba(252, 196, 104, 0.25);
+        }
+
+        .tab:nth-child(3).active {
+            background: linear-gradient(135deg, #fde488 0%, #f2cd6e 100%);
+            border-bottom: 3px solid #fcc468;
+            box-shadow: 0 4px 15px rgba(252, 196, 104, 0.3);
+        }
+
+        /* חלק ד: אסדרת חדשנות - ירוק רך מאוד */
+        .tab:nth-child(4) {
+            background: linear-gradient(135deg, #7dd3c0 0%, #5cb3a1 100%);
+            color: white;
+            border-bottom: 3px solid #52a69a;
+        }
+
+        .tab:nth-child(4):hover {
+            background: linear-gradient(135deg, #8de3d0 0%, #6cc3b1 100%);
+            box-shadow: 0 3px 12px rgba(125, 211, 192, 0.25);
+        }
+
+        .tab:nth-child(4).active {
+            background: linear-gradient(135deg, #9df3e0 0%, #7cd3c1 100%);
+            border-bottom: 3px solid #7dd3c0;
+            box-shadow: 0 4px 15px rgba(125, 211, 192, 0.3);
+        }
+
+        /* חלק ה: דוח מסכם - כחול רך מאוד */
+        .tab:nth-child(5) {
+            background: linear-gradient(135deg, #74b9ff 0%, #5a9fd8 100%);
+            color: white;
+            border-bottom: 3px solid #4d94d1;
+        }
+
+        .tab:nth-child(5):hover {
+            background: linear-gradient(135deg, #84c9ff 0%, #6aafe8 100%);
+            box-shadow: 0 3px 12px rgba(116, 185, 255, 0.25);
+        }
+
+        .tab:nth-child(5).active {
+            background: linear-gradient(135deg, #94d9ff 0%, #7abff8 100%);
+            border-bottom: 3px solid #74b9ff;
+            box-shadow: 0 4px 15px rgba(116, 185, 255, 0.3);
+        }
+
+        /* Active tab general styling */
+        .tab.active {
+            transform: translateY(-2px);
+            z-index: 2;
+            font-weight: 600;
+        }
+
+        /* Very subtle effects */
+        .tab:hover {
+            filter: brightness(1.05);
+        }
+
+        .tab.active {
+            filter: brightness(1.08);
+        }
+
+        .tab-content {
+            padding: 20px;
+            min-height: 600px;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 22px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .project-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .project-type {
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            background: white;
+        }
+
+        .project-type:hover {
+            border-color: #3498db;
+            background: #ecf0f1;
+        }
+
+        .project-type.selected {
+            border-color: #3498db;
+            background: #3498db;
+            color: white;
+        }
+
+        .project-type h4 {
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+
+        .project-type p {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .alert {
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+            border-left: 4px solid #3498db;
+            background: #d5e8f7;
+            color: #2c3e50;
+        }
+
+        .risk-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            border: 1px solid #ddd;
+        }
+
+        .risk-table th {
+            background: #34495e;
+            color: white;
+            padding: 12px;
+            text-align: center;
+            font-weight: bold;
+            border: 1px solid #ddd;
+        }
+
+        .risk-table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        .risk-table tbody tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .risk-table tbody tr:hover {
+            background: #e8f4fd;
+        }
+
+        .risk-input {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+
+        .risk-level {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 12px;
+            color: white;
+        }
+
+        .risk-low { background: #27ae60; }
+        .risk-medium { background: #f39c12; }
+        .risk-high { background: #e74c3c; }
+
+        .matrix {
+            display: grid;
+            grid-template-columns: repeat(11, 40px);
+            gap: 2px;
+            margin: 20px 0;
+            direction: ltr;
+        }
+
+        .matrix-cell {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            border: 1px solid #ddd;
+        }
+
+        .matrix-header {
+            background: #95a5a6;
+            color: white;
+        }
+
+        .matrix-low { background: #d5f4e6; color: #27ae60; }
+        .matrix-medium { background: #fef5e7; color: #f39c12; }
+        .matrix-high { background: #fadbd8; color: #e74c3c; }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .stat-card {
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+            margin: 5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.16);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.16);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: 2px solid #5a6fd8;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+            border-color: #4c63d2;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            border: 2px solid #0e8478;
+        }
+
+        .btn-success:hover {
+            background: linear-gradient(135deg, #0e8478 0%, #2dd46b 100%);
+            border-color: #0c6b5f;
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            color: #8b4513;
+            border: 2px solid #f4a261;
+        }
+
+        .btn-warning:hover {
+            background: linear-gradient(135deg, #f4a261 0%, #e76f51 100%);
+            color: white;
+            border-color: #e76f51;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            color: #721c24;
+            border: 2px solid #ff6b7a;
+        }
+
+        .btn-danger:hover {
+            background: linear-gradient(135deg, #ff6b7a 0%, #c0392b 100%);
+            color: white;
+            border-color: #c0392b;
+        }
+
+        .btn-info {
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            color: white;
+            border: 2px solid #0984e3;
+        }
+
+        .btn-info:hover {
+            background: linear-gradient(135deg, #0984e3 0%, #006ba6 100%);
+            border-color: #006ba6;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            color: #2d3436;
+            border: 2px solid #81ecec;
+        }
+
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #81ecec 0%, #fd79a8 100%);
+            color: white;
+            border-color: #fd79a8;
+        }
+
+        .btn-dark {
+            background: linear-gradient(135deg, #2d3436 0%, #636e72 100%);
+            color: white;
+            border: 2px solid #2d3436;
+        }
+
+        .btn-dark:hover {
+            background: linear-gradient(135deg, #636e72 0%, #2d3436 100%);
+            border-color: #636e72;
+        }
+
+        .btn-light {
+            background: linear-gradient(135deg, #fab2b2 0%, #ffeaa7 100%);
+            color: #2d3436;
+            border: 2px solid #fab2b2;
+        }
+
+        .btn-light:hover {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fab2b2 100%);
+            border-color: #ffeaa7;
+        }
+
+        /* Special gradient buttons */
+        .btn-gradient-ocean {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: 2px solid #667eea;
+        }
+
+        .btn-gradient-sunset {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            color: white;
+            border: 2px solid #fa709a;
+        }
+
+        .btn-gradient-forest {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            border: 2px solid #11998e;
+        }
+
+        .btn-gradient-fire {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            color: #8b4513;
+            border: 2px solid #ff9a9e;
+        }
+
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 12px;
+            border-radius: 6px;
+        }
+
+        .btn-lg {
+            padding: 16px 32px;
+            font-size: 16px;
+            border-radius: 10px;
+        }
+
+        /* Icon buttons */
+        .btn-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            padding: 0;
+        }
+
+        /* Animated buttons */
+        .btn-animated {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-animated::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-animated:hover::before {
+            left: 100%;
+        }
+
+        /* Pulse effect */
+        .btn-pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(102, 126, 234, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(102, 126, 234, 0);
+            }
+        }
+
+        /* Glow effect */
+        .btn-glow {
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .btn-glow:hover {
+            box-shadow: 0 0 30px rgba(102, 126, 234, 0.8);
+        }
+
+        .summary-box {
+            background: #ecf0f1;
+            border: 1px solid #bdc3c7;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .summary-box h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+        }
+
+        .strategy-card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid #3498db;
+        }
+
+        .strategy-card h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .innovation-levels {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .innovation-level {
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .innovation-level:hover {
+            border-color: #3498db;
+            background: #ecf0f1;
+        }
+
+        .innovation-level.selected {
+            border-color: #3498db;
+            background: #3498db;
+            color: white;
+        }
+
+        .compliance-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .compliance-table th,
+        .compliance-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: right;
+        }
+
+        .compliance-table th {
+            background: #34495e;
+            color: white;
+        }
+
+        .progress-container {
+            margin: 20px 0;
+        }
+
+        .progress-text {
+            text-align: center;
+            margin: 10px 0;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #ecf0f1;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #bdc3c7;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #e74c3c, #f39c12, #27ae60);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .editable {
+            cursor: pointer;
+            padding: 10px;
+            border: 2px dashed transparent;
+            border-radius: 4px;
+            min-height: 30px;
+            transition: all 0.3s;
+        }
+
+        .editable:hover {
+            border-color: #3498db;
+            background: #ecf0f1;
+        }
+
+        .editing {
+            border-color: #3498db !important;
+            background: white !important;
+        }
+
+        .action-buttons {
+            margin: 20px 0;
+            text-align: center;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 15px;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+
+        .info-label {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .info-value {
+            color: #34495e;
+        }
+
+        @media (max-width: 768px) {
+            .tabs {
+                flex-wrap: wrap;
+            }
+            
+            .tab {
+                flex: 1 1 50%;
+                min-width: 120px;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .workflow {
+                flex-direction: column;
+            }
+            
+            .matrix {
+                grid-template-columns: repeat(6, 35px);
+            }
+            
+            .matrix-cell {
+                width: 35px;
+                height: 35px;
+                font-size: 10px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+        }
+/* כפתור עריכה */
+        .edit-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .edit-toggle:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        .edit-toggle.active {
+            background: #27ae60;
+        }
+
+        /* כפתור ייצוא PDF */
+        .pdf-export {
+            position: fixed;
+            top: 80px;
+            left: 20px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .pdf-export:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        .pdf-export.exporting {
+            background: #f39c12;
+            cursor: not-allowed;
+        }
+
+        /* סגנון לעריכה */
+        .editable {
+            padding: 3px;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .editable[contenteditable="true"] {
+            background: rgba(52, 152, 219, 0.1);
+            border: 2px dashed #3498db;
+            outline: none;
+            cursor: text;
+            padding: 5px;
+        }
+
+        .editable[contenteditable="true"]:hover {
+            background: rgba(52, 152, 219, 0.2);
+        }
+
+        .editable[contenteditable="true"]:focus {
+            background: rgba(52, 152, 219, 0.15);
+            box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
+        }
+
+        /* הודעת הצלחה */
+        .success-message {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: #27ae60;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            font-weight: bold;
+            opacity: 0;
+            transform: translateX(400px);
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+
+        .success-message.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+    /* Innovation Assessment Styles */
+        .innovation-assessment-grid {
+            display: grid;
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .assessment-item {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .assessment-item:hover {
+            background: #e3f2fd;
+            border-color: #2196f3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(33, 150, 243, 0.15);
+        }
+
+        .assessment-item label {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        .assessment-item input[type="checkbox"] {
+            margin-top: 3px;
+            transform: scale(1.2);
+            accent-color: #3498db;
+        }
+
+        .regulation-note {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 6px;
+            padding: 10px;
+            font-size: 13px;
+            color: #856404;
+            margin-top: 8px;
+            line-height: 1.4;
+        }
+
+        .regulation-note strong {
+            color: #721c24;
+        }
+
+        /* Innovation Level Enhanced Styles */
+        .innovation-level {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .innovation-level::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s;
+            opacity: 0;
+        }
+
+        .innovation-level:hover::before {
+            animation: shimmer 1.5s ease-in-out;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); opacity: 0; }
+        }
+
+        /* Enhanced Compliance Table */
+        .compliance-table {
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .compliance-table th {
+            background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+            position: relative;
+        }
+
+        .compliance-table th::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #3498db,
+        @media (max-width: 768px) {
+            .edit-toggle {
+                top: 10px;
+                left: 10px;
+                padding: 12px 20px;
+                font-size: 0.9em;
+            }
+
+            .pdf-export {
+                top: 65px;
+                left: 10px;
+                padding: 12px 20px;
+                font-size: 0.9em;
+            }
+            
+            .tabs {
+                flex-wrap: wrap;
+            }
+            
+            .tab {
+                flex: 1 1 50%;
+                min-width: 120px;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .workflow {
+                flex-direction: column;
+            }
+            
+            .matrix {
+                grid-template-columns: repeat(6, 35px);
+            }
+            
+            .matrix-cell {
+                width: 35px;
+                height: 35px;
+                font-size: 10px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+        }
+
+        @media print {
+            .edit-toggle, .pdf-export, .success-message {
+                display: none !important;
+            }
+            
+            .action-buttons,
+            .btn {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+      
+    <button class="edit-toggle" onclick="toggleEdit()">🎨 התחל עריכה</button>
+    <button class="pdf-export" onclick="exportToPDF()">📄 ייצוא ל-PDF</button>
+            
+        <div class="header">
+            <h1>כלי מקצועי לניהול סיכונים בפרויקטים</h1>
+            <p>מערכת מתקדמת להערכה וניהול סיכונים לכל סוגי הפרויקטים</p>
+        </div>
+
+        <div class="workflow">
+            <div class="workflow-step">
+                <div class="number">1</div>
+                <div>זיהוי סיכונים<br>מיפוי הסיכונים האפשריים בפרויקט</div>
+            </div>
+            <div class="workflow-step">
+                <div class="number">2</div>
+                <div>ניתוח והערכת סיכונים<br>ניתוח הסיכונים לפי הסתברות ועוצמת נזק</div>
+            </div>
+            <div class="workflow-step">
+                <div class="number">3</div>
+                <div>קביעת אסטרטגיות התמודדות<br>תכנון פעולות למניעה והפחתה</div>
+            </div>
+            <div class="workflow-step">
+                <div class="number">4</div>
+                <div>בקרה ומעקב<br>מעקב שוטף ויעילות האסטרטגיות</div>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="showSection('project-setup')">חלק א: הגדרת הפרויקט</button>
+            <button class="tab" onclick="showSection('risk-management')">חלק ב: ניהול סיכונים</button>
+            <button class="tab" onclick="showSection('response-plan')">חלק ג: תוכנית התמודדות</button>
+            <button class="tab" onclick="showSection('innovation')">חלק ד: אסדרת חדשנות</button>
+            <button class="tab" onclick="showSection('report')">חלק ה: דוח מסכם</button>
+        </div>
+
+        <div class="tab-content">
+            <div id="project-setup" class="section active">
+                <h2>הגדרת הפרויקט</h2>
+                <p>בחלק זה עליך להגדיר את הפרויקט, מטרותיו והתוצרים המצופים. מידע זה ישמש כבסיס לניתוח הסיכונים בשלבים הבאים.</p>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="project-name">שם הפרויקט *</label>
+                        <input type="text" id="project-name" placeholder="הכנס שם פרויקט">
+                    </div>
+                    <div class="form-group">
+                        <label for="project-manager">מנהל הפרויקט *</label>
+                        <input type="text" id="project-manager" placeholder="שם מנהל הפרויקט">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="organization">מוסד חינוכי/ארגון *</label>
+                        <input type="text" id="organization" placeholder="שם הארגון או המוסד">
+                    </div>
+                    <div class="form-group">
+                        <label for="project-scope">היקף הפרויקט</label>
+                        <select id="project-scope">
+                            <option value="">בחר היקף</option>
+                            <option value="local">מקומי (כיתה/מחלקה)</option>
+                            <option value="school">מוסדי (בית ספר/יחידה)</option>
+                            <option value="district">אזורי (מחוז/אזור)</option>
+                            <option value="national">ארצי</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>סוג הפרויקט *</label>
+                    <div class="project-types">
+                        <div class="project-type" onclick="selectProjectType(this, 'educational')">
+                            <h4>חינוכי</h4>
+                            <p>פרויקטים חינוכיים ופדגוגיים</p>
+                        </div>
+                        <div class="project-type" onclick="selectProjectType(this, 'technological')">
+                            <h4>טכנולוגי</h4>
+                            <p>פרויקטים טכנולוגיים ודיגיטליים</p>
+                        </div>
+                        <div class="project-type" onclick="selectProjectType(this, 'infrastructure')">
+                            <h4>תשתיות</h4>
+                            <p>פרויקטי תשתית ומבנים</p>
+                        </div>
+                        <div class="project-type" onclick="selectProjectType(this, 'organizational')">
+                            <h4>ארגוני</h4>
+                            <p>שינויים ארגוניים ותהליכיים</p>
+                        </div>
+                        <div class="project-type" onclick="selectProjectType(this, 'research')">
+                            <h4>מחקרי</h4>
+                            <p>פרויקטי מחקר ופיתוח</p>
+                        </div>
+                        <div class="project-type" onclick="selectProjectType(this, 'community')">
+                            <h4>קהילתי</h4>
+                            <p>פרויקטים קהילתיים וחברתיים</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="project-description">תיאור הפרויקט *</label>
+                    <textarea id="project-description" rows="4" placeholder="תאר את מטרות הפרויקט, התוצרים המצופים והתהליך המתוכנן"></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="start-date">תאריך התחלה</label>
+                        <input type="date" id="start-date">
+                    </div>
+                    <div class="form-group">
+                        <label for="end-date">תאריך סיום משוער</label>
+                        <input type="date" id="end-date">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="stakeholders">בעלי עניין מרכזיים</label>
+                    <textarea id="stakeholders" rows="3" placeholder="רשום את הגורמים העיקריים המעורבים בפרויקט"></textarea>
+                </div>
+
+                <div class="summary-box">
+                    <h3>סיכום הגדרת הפרויקט</h3>
+                    <p>להמשך התהליך, מלא את פרטי הפרויקט ולחץ על כפתור "המשך לניהול סיכונים" בתחתית העמוד.</p>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-gradient-ocean btn-animated btn-lg" onclick="showSection('risk-management')">
+                        ➡️ המשך לניהול סיכונים
+                    </button>
+                </div>
+            </div>
+
+            <div id="risk-management" class="section">
+                <h2>ניהול סיכונים</h2>
+                <p>בחלק זה עליך לזהות ולהעריך את הסיכונים והזדמנויות העיקריים בפרויקט. דרג את הסתברות הסיכון ואת עוצמת הנזק האפשרי בסולם של 1-10. שים לב שדרגת החומרה מחושבת אוטומטית כמכפלה של הסתברות ונזק.</p>
+                <button class="btn btn-gradient-forest btn-pulse" onclick="addRisk()">➕ הוסף סיכון חדש</button>
+                <table class="risk-table">
+                    <thead>
+                        <tr>
+                            <th>תיאור הסיכון</th>
+                            <th>קטגוריה</th>
+                            <th>הסתברות (1-10)</th>
+                            <th>עוצמת נזק (1-10)</th>
+                            <th>רמת חומרה</th>
+                            <th>פעולות</th>
+                        </tr>
+                    </thead>
+                    <tbody id="risks-table">
+                        </tbody>
+                </table>
+
+                <div class="summary-box">
+                    <h3>מטריצת סיכונים</h3>
+                    <div style="display: flex; gap: 20px; align-items: center; margin: 15px 0;">
+                        <div style="background: #e74c3c; color: white; padding: 10px; border-radius: 4px;">סיכון גבוה (65-100)</div>
+                        <div style="background: #f39c12; color: white; padding: 10px; border-radius: 4px;">סיכון בינוני (21-64)</div>
+                        <div style="background: #27ae60; color: white; padding: 10px; border-radius: 4px;">סיכון נמוך (1-20)</div>
+                    </div>
+                    <div class="matrix" id="risk-matrix">
+                        </div>
+                </div>
+
+                <div class="summary-box">
+                    <h3>סיכום ניהול הסיכונים</h3>
+                    <div class="stats-container">
+                        <div class="stat-card">
+                            <div class="stat-number risk-high" id="high-risk-count">0</div>
+                            <div class="stat-label">סיכונים ברמת חומרה גבוהה</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number risk-medium" id="medium-risk-count">0</div>
+                            <div class="stat-label">סיכונים ברמת חומרה בינונית</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number risk-low" id="low-risk-count">0</div>
+                            <div class="stat-label">סיכונים ברמת חומרה נמוכה</div>
+                        </div>
+                    </div>
+                    <p>השלב הבא: עבור ללשונית "תוכנית התמודדות" כדי לפתח אסטרטגיות להפחתת הסיכונים שזוהו.</p>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-gradient-ocean btn-animated btn-lg" onclick="showSection('response-plan')">
+                        ➡️ המשך לתוכנית התמודדות
+                    </button>
+                </div>
+            </div>
+
+            <div id="response-plan" class="section">
+                <h2>תוכנית התמודדות</h2>
+                <p>בחלק זה עליך לפתח אסטרטגיות ספציפיות להפחתת הסיכונים שזוהו. התמקד בסיכונים בעלי דרגת חומרה גבוהה ובינונית.</p>
+                <div id="response-strategies">
+                    </div>
+
+                <div class="summary-box">
+                    <h3>אסטרטגיות להתמודדות עם סיכונים</h3>
+                    <div class="form-row">
+                        <div class="strategy-card">
+                            <h4>אסטרטגיית מניעה</h4>
+                            <p>פעולות שמטרתן למנוע את התרחשות הסיכון או להפחית את הסבירות להתרחשותו.</p>
+                            <ul>
+                                <li>זיהוי מוקדם של בעיות פוטנציאליות</li>
+                                <li>הכשרה והדרכה מקדימה</li>
+                                <li>בדיקות איכות</li>
+                            </ul>
+                        </div>
+                        <div class="strategy-card">
+                            <h4>אסטרטגיית הפחתה</h4>
+                            <p>פעולות שמטרתן להקטין את עוצמת הנזק אם הסיכון יתממש.</p>
+                            <ul>
+                                <li>גיבוי ותכניות חלופיות</li>
+                                <li>פיזור סיכונים</li>
+                                <li>הגדרת תהליכי עבודה ברורים</li>
+                            </ul>
+                        </div>
+                        <div class="strategy-card">
+                            <h4>אסטרטגיית התמודדות</h4>
+                            <p>תוכניות פעולה למקרה שהסיכון מתממש.</p>
+                            <ul>
+                                <li>נהלי חירום</li>
+                                <li>צוותי תגובה מהירה</li>
+                                <li>תקציב חירום</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="summary-box">
+                    <h3>סיכום תוכנית ההתמודדות</h3>
+                    <p>השלב הבא: עבור ללשונית "אסדרת חדשנות" כדי להעריך את רמת החדשנות של הפרויקט והתאמתו לאסדרת חדשנות חינוכית.</p>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-gradient-ocean btn-animated btn-lg" onclick="showSection('innovation')">
+                        ➡️ המשך לאסדרת חדשנות
+                    </button>
+                </div>
+            </div>
+
+            <!-- Innovation Assessment Section - UPDATED -->
+<div id="innovation" class="section">
+    <h2>אסדרת חדשנות חינוכית</h2>
+    <p>בחלק זה תבחן את רמת החדשנות של הפרויקט ואת התאמתו לדרישות האסדרה לפי חוזר מנכ"ל משרד החינוך. הערכה נכונה תסייע בהבנת מידת הצורך באישורים ובתמיכה.</p>
+    
+    <!-- הגדרות חדשנות אחראית -->
+    <div class="summary-box">
+        <h3>🎯 הגדרת החדשנות החינוכית</h3>
+        <div class="alert">
+            <strong>חדשנות אחראית (RRI - Responsible Research and Innovation):</strong><br>
+            תהליך הלוקח בחשבון השפעות והשפעות אפשריות על הסביבה והחברה במהלך מחקר ופיתוח טכנולוגי, בהיבטים אתיים, משפטיים וחברתיים.
+        </div>
+        
+        <div class="form-group">
+            <label for="innovation-description-detailed">תיאור מפורט של החדשנות החינוכית *</label>
+            <textarea id="innovation-description-detailed" rows="4" placeholder="תאר בפירוט את האספקטים החדשניים של הפרויקט, כיצד הוא שונה מהנוהג הקיים, ומה הערך המוסף שהוא מביא"></textarea>
+        </div>
+    </div>
+
+    <!-- הערכת רמת החדשנות -->
+    <div class="summary-box">
+        <h3>📊 הערכת רמת החדשנות</h3>
+        <div class="innovation-levels">
+            <div class="innovation-level" onclick="selectInnovationLevel(this, 'low')">
+                <h4>נמוכה (1-8)</h4>
+                <p>שיפורים קלים לתהליכים קיימים</p>
+            </div>
+            <div class="innovation-level" onclick="selectInnovationLevel(this, 'medium')">
+                <h4>בינונית (9-16)</h4>
+                <p>שינויים משמעותיים במתודולוגיה</p>
+            </div>
+            <div class="innovation-level" onclick="selectInnovationLevel(this, 'high')">
+                <h4>גבוהה (17-25)</h4>
+                <p>פתרון חדשני ופורץ דרך</p>
+            </div>
+        </div>
+        
+        <div class="progress-container">
+            <div class="progress-text">
+                <span id="innovation-score">0</span>/25 - 
+                <span id="innovation-level-text">רמת חדשנות: לא הוערך</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="innovation-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- מפת התמצאות לאסדרת חדשנות -->
+    <div class="summary-box">
+        <h3>🗺️ מפת התמצאות לאסדרת חדשנות</h3>
+        <p>על פי מפת ההתמצאות של משרד החינוך, בחן את ההיבטים הבאים של הפרויקט:</p>
+        
+        <!-- פדגוגיה -->
+        <div class="strategy-card">
+            <h4>1. פדגוגיה - השינוי הנדרש ברמה הפדגוגית</h4>
+            <div class="innovation-assessment-grid">
+                <div class="assessment-item">
+                    <label>
+                        <input type="checkbox" id="pedagogy-seasons"> 
+                        למידת מקצועות הליבה בתקופות לאורך השנה
+                    </label>
+                    <div class="regulation-note">רגולציה קיימת: מקצוע ליבה חייב להילמד ברצף לאורך כל השנה. תנאים: בתנאי שעומדים במבחני אסיף והתמונה החינוכית.</div>
+                </div>
+                
+                <div class="assessment-item">
+                    <label>
+                        <input type="checkbox" id="pedagogy-interdisciplinary"> 
+                        למידה רב ובין תחומית חוצת אשכולות
+                    </label>
+                    <div class="regulation-note">רגולציה קיימת: גמישות עד 30% בתוך אשכול מקצועות. תנאים: לומדים את כל הנדרש בתחומי הדעת ובאישור מפמ"ר.</div>
+                </div>
+                
+                <div class="assessment-item">
+                    <label>
+                        <input type="checkbox" id="pedagogy-realworld"> 
+                        למידה במרחבי החיים
+                    </label>
+                    <div class="regulation-note">רגולציה קיימת: במסגרת סיור לימודי עם אישורים מתאימים. תנאים: על בסיס אישורי בטיחות של קב"ט רשות ומחוז.</div>
+                </div>
+                
+                <div class="assessment-item">
+                    <label>
+                        <input type="checkbox" id="pedagogy-mentoring"> 
+                        למידה בחונכות
+                    </label>
+                    <div class="regulation-note">רגולציה קיימת: אין גמול חינוך למורים שאינם מחנכי כיתות. תנאים: תל"ן מתגמל לחונכות לא ניתן בפיצול ליבה.</div>
+                </div>
+                
+                <div class="assessment-item">
+                    <label>
+                        <input type="checkbox" id="pedagogy-languages"> 
+                        למידה של שפה שניה ושלישית מגילאי הגן
+                    </label>
+                    <div class="regulation-note">רגולציה קיימת: שפה שניה מכיתה ב' ושפה שלישית מכיתה ה. תנאים: לוודא שלא נפגעת ההתפתחות התקינה בשפת האם.</div>
+                </div>
+                
+                <div class="assessment-item">
+                    <label>
+                        <input type="checkbox" id="pedagogy-active"> 
+                        הידע נרכש באמצעות המורה בתהליכי לימוד פעילותיים
+                    </label>
+                    <div class="regulation-note">רגולציה קיימת: למידה באמצעות ספרי לימוד מאושרים. תנאים: עומדים במבחני אסיף והתמונה החינוכית.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ארגון -->
+        <div class="strategy-card">
+            <h4>2. ארגון - השינוי הנדרש ברמה הארגונית</h4>
+            <div class="innovation-assessment-grid">
+                <div class="assessment-item">
+                    <label>
+                        <input type="checkbox" id="org-multiage"> 
+                        למידה רב גילאית (דו, תלת, גן-יב')
+                    </label>
+                    <div class="regulation-note">רגולציה קיימת: למידה בכיתות חד גילאיות בחלוקה לשלבי גיל. תנאים: עומדים במבחני אסיף והתמונה החינוכית.</div>
+                </div>
+                
+                <div class="assessment-item">
+                    <label>
+                        <input type="checkbox" id="org-choice"> 
+                        יצירת מרחבי בחירה
+                    </label>
+                    <div class="regulation-note">רגולציה קיימת: למידה במערכת שעות כיתתית שנתית על פי מקצועות. תנאים: עומדים במבחני אסיף והתמונה החינוכית.</div>
+                </div>
+                
+                <div class="assessment-item">
+                    <label>
+                        <input type="checkbox" id="org-independent"> 
+                        למידה עצמאית במרחבי למידה
+                    </label>
+                    <div class="regulation-note">רגולציה קיימת: למידה במערכת שעות כיתתית שנתית על פי מקצועות. תנאים: עומדים במבחני אסיף והתמונה החינוכית.</div>
+                </div>
+                
+                <div class="assessment-item">
+                    <label>
+                        <input type="checkbox" id="org-continuous"> 
+                        ליווי הכיתה על ידי מחנך רציף
+                    </label>
+                    <div class="regulation-note">רגולציה קיימת: מחנך מתחלף כל שלוש שנים לערך. תנאים: אקלים חינוכי תקין.</div>
+                </div>
+                
+                <div class="assessment-item">
+                    <label>
+                        <input type="checkbox" id="org-personal"> 
+                        מערכת למידה אישית שכל תלמיד בונה לעצמו
+                    </label>
+                    <div class="regulation-note">רגולציה קיימת: למידה במערכת שעות כיתתית שנתית על פי מקצועות. תנאים: עומדים במבחני אסיף והתמונה החינוכית.</div>
+                </div>
+                
+                <div class="assessment-item">
+                    <label>
+                        <input type="checkbox" id="org-democratic"> 
+                        ניהול בית הספר כקהילה בוועדות ובפרלמנט
+                    </label>
+                    <div class="regulation-note">רגולציה קיימת: חיי בית הספר מתנהלים על פי תקנון בית ספרי. תנאים: בלימודי תל"ן ללא פיצול ליבה.</div>
+                </div>
+                
+                <div class="assessment-item">
+                    <label>
+                        <input type="checkbox" id="org-assessment"> 
+                        תהליכי הערכה מתקיימים בשיח דיאלוגי (ללא מבחנים)
+                    </label>
+                    <div class="regulation-note">רגולציה קיימת: מתקיימות בחינות פנימיות וחיצוניות אחידות לכלל הכיתה. תנאים: עומדים במבחני אסיף והתמונה החינוכית.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- משאבים -->
+        <div class="strategy-card">
+            <h4>3. משאבים - השינוי הנדרש מבחינת כוח אדם, זמן ותקציב</h4>
+            <div class="innovation-assessment-grid">
+                <div class="assessment-item">
+                    <label>
+                        <input type="checkbox" id="resources-experts"> 
+                        קליטת מומחי תוכן ללא תעודת הוראה
+                    </label>
+                    <div class="regulation-note">רגולציה קיימת: מורים נדרשים לתעודת הוראה. תנאים: ניתן רק במסגרת שעות התל"נ או בכרטיס מרצה של מומחה בתחומו.</div>
+                </div>
+                
+                <div class="assessment-item">
+                    <label>
+                        <input type="checkbox" id="resources-flexible"> 
+                        מערכת שעות גמישה - חלוקת שעות ליחידות מיקרו למידה
+                    </label>
+                    <div class="regulation-note">רגולציה קיימת: סדר היום על פי תקנון עובדי הוראה ביחידות זמן של 45-90 דק'. תנאים: ניתן רק במסגרת שעות התל"נ.</div>
+                </div>
+                
+                <div class="assessment-item">
+                    <label>
+                        <input type="checkbox" id="resources-compensation"> 
+                        גמישות בתגמול מורים מחנכים
+                    </label>
+                    <div class="regulation-note">רגולציה קיימת: רק מחנך כיתה מקבל גמול חינוך. תנאים: מאושר במסגרת שעות פרטניות או בודדות.</div>
+                </div>
+                
+                <div class="assessment-item">
+                    <label>
+                        <input type="checkbox" id="resources-informal"> 
+                        תגמול על פעילות בלתי פורמאלית
+                    </label>
+                    <div class="regulation-note">רגולציה קיימת: לא ניתן גמול על למידה בלתי פורמלית מעבר לשעות התקן. תנאים: מאושר במסגרת שעות פרטניות או בודדות.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- תשתיות -->
+        <div class="strategy-card">
+            <h4>4. תשתיות - השינוי הנדרש מבחינת תשתיות פיזיות וטכנולוגיות</h4>
+            <div class="innovation-assessment-grid">
+                <div class="assessment-item">
+                    <label>
+                        <input type="checkbox" id="infra-hybrid"> 
+                        למידה היברידית - במשמרות
+                    </label>
+                    <div class="regulation-note">רגולציה קיימת: שעות הלימודים מתקיימות עבור כלל התלמידים בבית הספר או במתכונת מקוונת ללא משמרות. תנאים: טרם אושר.</div>
+                </div>
+                
+                <div class="assessment-item">
+                    <label>
+                        <input type="checkbox" id="infra-tech"> 
+                        למידה בכלים טכנולוגיים שאינם מאושרים
+                    </label>
+                    <div class="regulation-note">רגולציה קיימת: למידה בכלים טכנולוגים מאושרים בלבד. תנאים: טרם אושר.</div>
+                </div>
+                
+                <div class="assessment-item">
+                    <label>
+                        <input type="checkbox" id="infra-sites"> 
+                        למידה בכמה אתרים שונים בתקופות לאורך השנה
+                    </label>
+                    <div class="regulation-note">רגולציה קיימת: אין הפרדה בין סמל אתר לסמל מוסד. תנאים: רק באתר נוסף לאתר בית הספר ובאישורי קב"ט רשות ומחוז.</div>
+                </div>
+                
+                <div class="assessment-item">
+                    <label>
+                        <input type="checkbox" id="infra-informal"> 
+                        למידה בלתי פורמלית נחשבת כשעת למידה בתקן
+                    </label>
+                    <div class="regulation-note">רגולציה קיימת: שעות התקן ללמידת תכנית היסוד על פי תחומי הדעת. תנאים: רק בשעות תל"ן ייחודי.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- עקרונות חדשנות אחראית -->
+    <div class="summary-box">
+        <h3>⚖️ עקרונות חדשנות אחראית</h3>
+        <p>בחן את התאמת הפרויקט לעקרונות החדשנות האחראית:</p>
+        
+        <table class="compliance-table">
+            <thead>
+                <tr>
+                    <th>עיקרון</th>
+                    <th>תיאור</th>
+                    <th>התייחסות בפרויקט</th>
+                    <th>רמת התאמה</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>חוק</strong><br>כפיפות לנורמות המחייבות</td>
+                    <td>המוסד יהיה כפוף להחלטות המשרד לגבי תכניות הלימודים, הנורמות, המימון ונהלי הבטיחות</td>
+                    <td><textarea class="risk-input" placeholder="תאר כיצד הפרויקט תואם לדרישות המשרד" rows="2"></textarea></td>
+                    <td>
+                        <select class="risk-input">
+                            <option value="">בחר רמה</option>
+                            <option value="high">גבוהה</option>
+                            <option value="medium">בינונית</option>
+                            <option value="low">נמוכה</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>אתיקה</strong><br>הוגנות ונגישות</td>
+                    <td>החדשנות פועלת תוך שמירה על כבוד האדם, זכויות היסוד ופרטיות. נגישה לכל ומספקת מענה הוגן</td>
+                    <td><textarea class="risk-input" placeholder="תאר כיצד מוגנת הפרטיות ונשמרת ההוגנות" rows="2"></textarea></td>
+                    <td>
+                        <select class="risk-input">
+                            <option value="">בחר רמה</option>
+                            <option value="high">גבוהה</option>
+                            <option value="medium">בינונית</option>
+                            <option value="low">נמוכה</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>שקיפות</strong><br>הנגשת מידע</td>
+                    <td>הצגת תכניות להנגשת המידע לאוכלוסיות השונות, במיוחד אוכלוסיות חלשות</td>
+                    <td><textarea class="risk-input" placeholder="תאר את תוכנית השקיפות והנגשת המידע" rows="2"></textarea></td>
+                    <td>
+                        <select class="risk-input">
+                            <option value="">בחר רמה</option>
+                            <option value="high">גבוהה</option>
+                            <option value="medium">בינונית</option>
+                            <option value="low">נמוכה</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>חברה</strong><br>סמכות ואחריות</td>
+                    <td>למוסד החינוך סמכות ואחריות לגבי הקורה בתוכו. מחויבות לתלמידים מרגע הבחירה ועד סיום הלימודים</td>
+                    <td><textarea class="risk-input" placeholder="תאר את מנגנוני האחריות והמחויבות" rows="2"></textarea></td>
+                    <td>
+                        <select class="risk-input">
+                            <option value="">בחר רמה</option>
+                            <option value="high">גבוהה</option>
+                            <option value="medium">בינונית</option>
+                            <option value="low">נמוכה</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>שלומות ומוגנות</strong><br>רווחת בעלי העניין</td>
+                    <td>החדשנות אינה פוגעת ברווחה הקוגניטיבית, הרגשית, החברתית והגופנית של התלמידים</td>
+                    <td><textarea class="risk-input" placeholder="תאר כיצד נשמרת רווחת התלמידים והצוות" rows="2"></textarea></td>
+                    <td>
+                        <select class="risk-input">
+                            <option value="">בחר רמה</option>
+                            <option value="high">גבוהה</option>
+                            <option value="medium">בינונית</option>
+                            <option value="low">נמוכה</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>הכלה וגיוון</strong><br>ייצוג האוכלוסייה</td>
+                    <td>המוסד משקף את האוכלוסייה במקום חברתית ולימודית. הטרוגניות בהרכב התלמידים</td>
+                    <td><textarea class="risk-input" placeholder="תאר כיצד מובטחת הכלה וגיוון" rows="2"></textarea></td>
+                    <td>
+                        <select class="risk-input">
+                            <option value="">בחר רמה</option>
+                            <option value="high">גבוהה</option>
+                            <option value="medium">בינונית</option>
+                            <option value="low">נמוכה</option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="form-group" style="margin-top: 20px;">
+            <label>הערכת התאמה כללית לעקרונות חדשנות אחראית:</label>
+            <select id="overall-compliance" class="risk-input">
+                <option value="">לא הוערך</option>
+                <option value="high">גבוהה - הפרויקט עומד בכל העקרונות</option>
+                <option value="medium">בינונית - הפרויקט עומד ברוב העקרונות</option>
+                <option value="low">נמוכה - הפרויקט זקוק לשיפורים משמעותיים</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- המלצות לאסדרה -->
+    <div class="summary-box">
+        <h3>📋 המלצות לתהליך האסדרה</h3>
+        <div id="regulation-recommendations">
+            <!-- יתמלא אוטומטית בהתבסס על הבחירות -->
+        </div>
+        
+        <div class="form-group">
+            <label for="additional-considerations">שיקולים נוספים לאסדרה</label>
+            <textarea id="additional-considerations" rows="3" placeholder="הוסף שיקולים נוספים שיש לקחת בחשבון בתהליך האסדרה"></textarea>
+        </div>
+    </div>
+
+    <div class="action-buttons">
+        <button class="btn btn-gradient-forest btn-glow" onclick="calculateInnovationScore()">
+            🔄 חשב ציון חדשנות
+        </button>
+        <button class="btn btn-gradient-ocean btn-animated btn-lg" onclick="showSection('report')">
+            ➡️ המשך לדוח מסכם
+        </button>
+    </div>
+</div>
+
+            <div id="report" class="section">
+                <h2>דוח מסכם</h2>
+                <p>דוח זה מסכם את ניתוח הסיכונים ואת תוכנית ההתמודדות עבור הפרויקט.</p>
+                
+                <div class="summary-box">
+                    <h3>פרטי הפרויקט</h3>
+                    <div class="info-grid">
+                        <div class="info-label">שם הפרויקט:</div>
+                        <div class="info-value editable" id="report-project-name" contenteditable="false"></div>
+                        
+                        <div class="info-label">מנהל הפרויקט:</div>
+                        <div class="info-value editable" id="report-project-manager" contenteditable="false"></div>
+                        
+                        <div class="info-label">מוסד חינוכי/ארגון:</div>
+                        <div class="info-value editable" id="report-organization" contenteditable="false"></div>
+                        
+                        <div class="info-label">היקף הפרויקט:</div>
+                        <div class="info-value editable" id="report-project-scope" contenteditable="false"></div>
+                        
+                        <div class="info-label">סוג הפרויקט:</div>
+                        <div class="info-value editable" id="report-project-type" contenteditable="false"></div>
+                        
+                        <div class="info-label">תאור הפרויקט:</div>
+                        <div class="info-value editable" id="report-project-description" contenteditable="false"></div>
+                        
+                        <div class="info-label">תאריך התחלה:</div>
+                        <div class="info-value editable" id="report-start-date" contenteditable="false"></div>
+                        
+                        <div class="info-label">תאריך סיום משוער:</div>
+                        <div class="info-value editable" id="report-end-date" contenteditable="false"></div>
+                        
+                        <div class="info-label">בעלי עניין מרכזיים:</div>
+                        <div class="info-value editable" id="report-stakeholders" contenteditable="false"></div>
+                    </div>
+                </div>
+
+                <div class="summary-box">
+                    <h3>ניתוח סיכונים עיקריים</h3>
+                    <p>להלן פירוט הסיכונים שזוהו ורמת החומרה שלהם:</p>
+                    <table class="risk-table">
+                        <thead>
+                            <tr>
+                                <th>תיאור הסיכון</th>
+                                <th>קטגוריה</th>
+                                <th>הסתברות</th>
+                                <th>עוצמת נזק</th>
+                                <th>רמת חומרה</th>
+                            </tr>
+                        </thead>
+                        <tbody id="report-risks-table">
+                            </tbody>
+                    </table>
+                    <div class="stats-container">
+                        <div class="stat-card">
+                            <div class="stat-number risk-high" id="report-high-risk-count">0</div>
+                            <div class="stat-label">סיכונים ברמת חומרה גבוהה</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number risk-medium" id="report-medium-risk-count">0</div>
+                            <div class="stat-label">סיכונים ברמת חומרה בינונית</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number risk-low" id="report-low-risk-count">0</div>
+                            <div class="stat-label">סיכונים ברמת חומרה נמוכה</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="summary-box">
+                    <h3>תוכנית התמודדות מומלצת</h3>
+                    <p>להלן תוכניות הפעולה המומלצות לכל סיכון שזוהה:</p>
+                    <ul id="report-response-strategies">
+                        </ul>
+                </div>
+
+                <div class="summary-box">
+                    <h3>הערכת חדשנות ועמידה באסדרה</h3>
+                    <div class="info-grid">
+                        <div class="info-label">רמת חדשנות כוללת:</div>
+                        <div class="info-value editable" id="report-innovation-level" contenteditable="false"></div>
+                        
+                        <div class="info-label">תיאור החדשנות:</div>
+                        <div class="info-value editable" id="report-innovation-description" contenteditable="false"></div>
+                    </div>
+                    <p>טבלת עמידה בדרישות אסדרה:</p>
+                    <table class="compliance-table">
+                        <thead>
+                            <tr>
+                                <th>נושא</th>
+                                <th>התייחסות בפרויקט</th>
+                                <th>רמת התאמה</th>
+                            </tr>
+                        </thead>
+                        <tbody id="report-compliance-table">
+                            </tbody>
+                    </table>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary btn-animated btn-lg" onclick="window.print()">🖨 הדפס דוח</button>
+                    <button class="btn btn-success btn-animated btn-lg" onclick="saveReportData()">💾 שמור דוח</button>
+                    <button class="btn btn-info btn-animated btn-lg" onclick="sendReport()">📧 שלח דוח</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="success-message" id="message-box"></div>
+    <script>
+        // Global state for edit mode
+        let isEditing = false;
+        let selectedProjectType = '';
+        let selectedInnovationLevel = '';
+        let risks = []; // Array to store risk data
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize sections
+            showSection('project-setup');
+            // Load saved data if any
+            loadReportData();
+            updateReportSection();
+            generateRiskMatrix();
+        });
+
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+                if (tab.onclick.toString().includes(`'${sectionId}'`)) {
+                    tab.classList.add('active');
+                }
+            });
+
+            // Update report content when navigating to the report section
+            if (sectionId === 'report') {
+                updateReportSection();
+            }
+        }
+
+        function toggleEdit() {
+            isEditing = !isEditing;
+            const editButton = document.querySelector('.edit-toggle');
+            editButton.classList.toggle('active', isEditing);
+            editButton.textContent = isEditing ? '✅ סיים עריכה' : '🎨 התחל עריכה';
+
+            const editables = document.querySelectorAll('.editable');
+            editables.forEach(el => {
+                el.contentEditable = isEditing;
+                el.classList.toggle('editing', isEditing);
+            });
+        }
+
+        function selectProjectType(element, type) {
+            const projectTypes = document.querySelectorAll('.project-type');
+            projectTypes.forEach(pt => pt.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedProjectType = type;
+        }
+
+        function selectInnovationLevel(element, level) {
+            const innovationLevels = document.querySelectorAll('.innovation-level');
+            innovationLevels.forEach(il => il.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedInnovationLevel = level;
+            updateInnovationScore();
+        }
+
+        function addRisk() {
+            const riskTableBody = document.getElementById('risks-table');
+            const newRow = riskTableBody.insertRow();
+            newRow.innerHTML = `
+                <td><input type="text" class="risk-input editable" placeholder="תיאור סיכון" contenteditable="true"></td>
+                <td><input type="text" class="risk-input editable" placeholder="קטגוריה" contenteditable="true"></td>
+                <td><input type="number" min="1" max="10" class="risk-input editable" value="1" onchange="calculateRiskLevel(this.parentNode.parentNode)" contenteditable="true"></td>
+                <td><input type="number" min="1" max="10" class="risk-input editable" value="1" onchange="calculateRiskLevel(this.parentNode.parentNode)" contenteditable="true"></td>
+                <td><span class="risk-level risk-low">נמוכה</span></td>
+                <td><button class="btn btn-danger btn-sm" onclick="deleteRisk(this)">🗑️ מחק</button></td>
+            `;
+            calculateRiskLevel(newRow); // Calculate initial risk level for the new row
+            toggleEditModeForNewElements(newRow); // Apply edit mode if active
+        }
+
+        function deleteRisk(button) {
+            const row = button.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+            calculateOverallRiskStats();
+            generateRiskMatrix();
+        }
+
+        function calculateRiskLevel(row) {
+            const probability = parseInt(row.children[2].querySelector('input').value);
+            const impact = parseInt(row.children[3].querySelector('input').value);
+            const severity = probability * impact;
+            
+            const severitySpan = row.children[4].querySelector('.risk-level');
+            severitySpan.textContent = getRiskLevelText(severity);
+            severitySpan.className = `risk-level ${getRiskLevelClass(severity)}`;
+
+            calculateOverallRiskStats();
+            generateRiskMatrix();
+        }
+
+        function getRiskLevelText(severity) {
+            if (severity >= 65) return 'גבוהה';
+            if (severity >= 21) return 'בינונית';
+            return 'נמוכה';
+        }
+
+        function getRiskLevelClass(severity) {
+            if (severity >= 65) return 'risk-high';
+            if (severity >= 21) return 'risk-medium';
+            return 'risk-low';
+        }
+
+        function calculateOverallRiskStats() {
+            let highCount = 0;
+            let mediumCount = 0;
+            let lowCount = 0;
+
+            const riskRows = document.querySelectorAll('#risks-table tr');
+            riskRows.forEach(row => {
+                const severityText = row.children[4].querySelector('.risk-level').textContent;
+                if (severityText === 'גבוהה') highCount++;
+                else if (severityText === 'בינונית') mediumCount++;
+                else if (severityText === 'נמוכה') lowCount++;
+            });
+
+            document.getElementById('high-risk-count').textContent = highCount;
+            document.getElementById('medium-risk-count').textContent = mediumCount;
+            document.getElementById('low-risk-count').textContent = lowCount;
+        }
+
+        function generateRiskMatrix() {
+            const matrixContainer = document.getElementById('risk-matrix');
+            matrixContainer.innerHTML = ''; // Clear previous matrix
+
+            // Create headers
+            let headersHtml = '<div class="matrix-cell matrix-header"></div>';
+            for (let i = 1; i <= 10; i++) {
+                headersHtml += `<div class="matrix-cell matrix-header">${i}</div>`;
+            }
+            matrixContainer.innerHTML += headersHtml;
+
+            for (let impact = 1; impact <= 10; impact++) {
+                matrixContainer.innerHTML += `<div class="matrix-cell matrix-header">${impact}</div>`; // Impact header
+                for (let probability = 1; probability <= 10; probability++) {
+                    const severity = probability * impact;
+                    const cellClass = getMatrixCellClass(severity);
+                    matrixContainer.innerHTML += `<div class="matrix-cell ${cellClass}" title="P:${probability}, I:${impact}">${severity}</div>`;
+                }
+            }
+        }
+
+        function getMatrixCellClass(severity) {
+            if (severity >= 65) return 'matrix-high';
+            if (severity >= 21) return 'matrix-medium';
+            return 'matrix-low';
+        }
+
+        function updateInnovationScore() {
+            let score = 0;
+            let levelText = 'לא הוערך';
+
+            switch (selectedInnovationLevel) {
+                case 'low': score = Math.floor(Math.random() * 8) + 1; levelText = 'נמוכה'; break; // 1-8
+                case 'medium': score = Math.floor(Math.random() * 8) + 9; levelText = 'בינונית'; break; // 9-16
+                case 'high': score = Math.floor(Math.random() * 9) + 17; levelText = 'גבוהה'; break; // 17-25
+            }
+
+            document.getElementById('innovation-score').textContent = score;
+            document.getElementById('innovation-level-text').textContent = `רמת חדשנות: ${levelText}`;
+            document.getElementById('innovation-progress').style.width = `${(score / 25) * 100}%`;
+        }
+
+        function updateReportSection() {
+            // Project Details
+            document.getElementById('report-project-name').textContent = document.getElementById('project-name').value;
+            document.getElementById('report-project-manager').textContent = document.getElementById('project-manager').value;
+            document.getElementById('report-organization').textContent = document.getElementById('organization').value;
+            document.getElementById('report-project-scope').textContent = document.getElementById('project-scope').options[document.getElementById('project-scope').selectedIndex].text;
+            document.getElementById('report-project-type').textContent = selectedProjectType ? document.querySelector(`.project-type[onclick*="${selectedProjectType}"] h4`).textContent : '';
+            document.getElementById('report-project-description').textContent = document.getElementById('project-description').value;
+            document.getElementById('report-start-date').textContent = document.getElementById('start-date').value;
+            document.getElementById('report-end-date').textContent = document.getElementById('end-date').value;
+            document.getElementById('report-stakeholders').textContent = document.getElementById('stakeholders').value;
+
+            // Risks Table
+            const reportRisksTableBody = document.getElementById('report-risks-table');
+            reportRisksTableBody.innerHTML = '';
+            const risksData = [];
+            document.querySelectorAll('#risks-table tr').forEach(row => {
+                const description = row.children[0].querySelector('input').value;
+                const category = row.children[1].querySelector('input').value;
+                const probability = row.children[2].querySelector('input').value;
+                const impact = row.children[3].querySelector('input').value;
+                const severityText = row.children[4].querySelector('.risk-level').textContent;
+                
+                reportRisksTableBody.innerHTML += `
+                    <tr>
+                        <td class="editable" contenteditable="false">${description}</td>
+                        <td class="editable" contenteditable="false">${category}</td>
+                        <td class="editable" contenteditable="false">${probability}</td>
+                        <td class="editable" contenteditable="false">${impact}</td>
+                        <td><span class="risk-level ${getRiskLevelClass(probability * impact)}">${severityText}</span></td>
+                    </tr>
+                `;
+                risksData.push({ description, category, probability, impact, severityText });
+            });
+            // Update risk counts in report
+            document.getElementById('report-high-risk-count').textContent = document.getElementById('high-risk-count').textContent;
+            document.getElementById('report-medium-risk-count').textContent = document.getElementById('medium-risk-count').textContent;
+            document.getElementById('report-low-risk-count').textContent = document.getElementById('low-risk-count').textContent;
+
+            // Response Strategies
+            const responseStrategiesList = document.getElementById('report-response-strategies');
+            responseStrategiesList.innerHTML = '';
+            document.querySelectorAll('#response-strategies .strategy-item').forEach(item => {
+                const riskDescription = item.querySelector('.editable[contenteditable="true"]').textContent;
+                const strategy = item.querySelector('textarea').value;
+                if (riskDescription && strategy) {
+                    responseStrategiesList.innerHTML += `<li><strong>${riskDescription}:</strong> ${strategy}</li>`;
+                }
+            });
+
+            // Innovation Assessment
+            document.getElementById('report-innovation-level').textContent = document.getElementById('innovation-level-text').textContent;
+            document.getElementById('report-innovation-description').textContent = document.getElementById('innovation-description').value;
+
+            // Compliance Table
+            const reportComplianceTableBody = document.getElementById('report-compliance-table');
+            reportComplianceTableBody.innerHTML = '';
+            document.querySelectorAll('#innovation .compliance-table tbody tr').forEach(row => {
+                const topic = row.children[0].textContent;
+                const reference = row.children[1].querySelector('input').value;
+                const suitability = row.children[2].querySelector('select').value;
+                reportComplianceTableBody.innerHTML += `
+                    <tr>
+                        <td class="editable" contenteditable="false">${topic}</td>
+                        <td class="editable" contenteditable="false">${reference}</td>
+                        <td class="editable" contenteditable="false">${suitability}</td>
+                    </tr>
+                `;
+            });
+
+            // Reapply edit mode if active
+            if (isEditing) {
+                toggleEdit(); // Toggle off and then on to reapply editing styles
+                toggleEdit();
+            }
+        }
+
+        // Functions for managing dynamic risks and response strategies
+        function updateResponseStrategies() {
+            const responseStrategiesContainer = document.getElementById('response-strategies');
+            responseStrategiesContainer.innerHTML = ''; // Clear existing
+
+            document.querySelectorAll('#risks-table tr').forEach(row => {
+                const description = row.children[0].querySelector('input').value;
+                const severitySpan = row.children[4].querySelector('.risk-level');
+                const severityText = severitySpan.textContent;
+
+                if (severityText === 'גבוהה' || severityText === 'בינונית') {
+                    const strategyDiv = document.createElement('div');
+                    strategyDiv.classList.add('form-group');
+                    strategyDiv.classList.add('strategy-item'); // Add a class for identification
+                    strategyDiv.innerHTML = `
+                        <label>אסטרטגיה לסיכון: <span class="editable" contenteditable="true">${description}</span> (רמת חומרה: <span class="risk-level ${severitySpan.classList[1]}">${severityText}</span>)</label>
+                        <textarea rows="3" class="editable" contenteditable="true" placeholder="תאר את תוכנית ההתמודדות עבור סיכון זה"></textarea>
+                    `;
+                    responseStrategiesContainer.appendChild(strategyDiv);
+                    toggleEditModeForNewElements(strategyDiv);
+                }
+            });
+        }
+
+        // Observer to detect changes in the risks table and update strategies
+        const observer = new MutationObserver(updateResponseStrategies);
+        observer.observe(document.getElementById('risks-table'), { childList: true, subtree: true });
+
+        // Function to apply edit mode to newly added elements
+        function toggleEditModeForNewElements(parent) {
+            if (isEditing) {
+                const editables = parent.querySelectorAll('.editable');
+                editables.forEach(el => {
+                    el.contentEditable = true;
+                    el.classList.add('editing');
+                });
+            }
+        }
+
+        function showMessage(msg) {
+            const msgBox = document.getElementById('message-box');
+            msgBox.textContent = msg;
+            msgBox.classList.add('show');
+            setTimeout(() => {
+                msgBox.classList.remove('show');
+            }, 3000);
+        }
+
+        // Save and Load Data (using localStorage for simplicity)
+        function saveReportData() {
+            const data = {
+                projectName: document.getElementById('project-name').value,
+                projectManager: document.getElementById('project-manager').value,
+                organization: document.getElementById('organization').value,
+                projectScope: document.getElementById('project-scope').value,
+                selectedProjectType: selectedProjectType,
+                projectDescription: document.getElementById('project-description').value,
+                startDate: document.getElementById('start-date').value,
+                endDate: document.getElementById('end-date').value,
+                stakeholders: document.getElementById('stakeholders').value,
+                
+                risks: [],
+                innovationLevel: selectedInnovationLevel,
+                innovationDescription: document.getElementById('innovation-description').value,
+                compliance: []
+            };
+
+            document.querySelectorAll('#risks-table tr').forEach(row => {
+                data.risks.push({
+                    description: row.children[0].querySelector('input').value,
+                    category: row.children[1].querySelector('input').value,
+                    probability: row.children[2].querySelector('input').value,
+                    impact: row.children[3].querySelector('input').value,
+                    severityText: row.children[4].querySelector('.risk-level').textContent,
+                    severityClass: row.children[4].querySelector('.risk-level').classList[1]
+                });
+            });
+
+            document.querySelectorAll('#response-strategies .strategy-item').forEach(item => {
+                const riskDescription = item.querySelector('.editable[contenteditable="true"]').textContent;
+                const strategy = item.querySelector('textarea').value;
+                data.risks.find(r => r.description === riskDescription).strategy = strategy;
+            });
+
+            document.querySelectorAll('#innovation .compliance-table tbody tr').forEach(row => {
+                data.compliance.push({
+                    topic: row.children[0].textContent,
+                    reference: row.children[1].querySelector('input').value,
+                    suitability: row.children[2].querySelector('select').value
+                });
+            });
+
+            localStorage.setItem('riskManagementReport', JSON.stringify(data));
+            showMessage('✅ נתוני הדוח נשמרו בהצלחה!');
+        }
+
+        function loadReportData() {
+            const savedData = localStorage.getItem('riskManagementReport');
+            if (savedData) {
+                const data = JSON.parse(savedData);
+
+                document.getElementById('project-name').value = data.projectName || '';
+                document.getElementById('project-manager').value = data.projectManager || '';
+                document.getElementById('organization').value = data.organization || '';
+                document.getElementById('project-scope').value = data.projectScope || '';
+                if (data.selectedProjectType) {
+                    selectProjectType(document.querySelector(`.project-type[onclick*="${data.selectedProjectType}"]`), data.selectedProjectType);
+                }
+                document.getElementById('project-description').value = data.projectDescription || '';
+                document.getElementById('start-date').value = data.startDate || '';
+                document.getElementById('end-date').value = data.endDate || '';
+                document.getElementById('stakeholders').value = data.stakeholders || '';
+
+                // Load risks
+                const riskTableBody = document.getElementById('risks-table');
+                riskTableBody.innerHTML = '';
+                if (data.risks) {
+                    data.risks.forEach(risk => {
+                        const newRow = riskTableBody.insertRow();
+                        newRow.innerHTML = `
+                            <td><input type="text" class="risk-input editable" placeholder="תיאור סיכון" value="${risk.description}" contenteditable="true"></td>
+                            <td><input type="text" class="risk-input editable" placeholder="קטגוריה" value="${risk.category}" contenteditable="true"></td>
+                            <td><input type="number" min="1" max="10" class="risk-input editable" value="${risk.probability}" onchange="calculateRiskLevel(this.parentNode.parentNode)" contenteditable="true"></td>
+                            <td><input type="number" min="1" max="10" class="risk-input editable" value="${risk.impact}" onchange="calculateRiskLevel(this.parentNode.parentNode)" contenteditable="true"></td>
+                            <td><span class="risk-level ${risk.severityClass}">${risk.severityText}</span></td>
+                            <td><button class="btn btn-danger btn-sm" onclick="deleteRisk(this)">🗑️ מחק</button></td>
+                        `;
+                        calculateRiskLevel(newRow); // Recalculate to ensure correct classes and stats
+                        toggleEditModeForNewElements(newRow);
+                    });
+                }
+                calculateOverallRiskStats();
+                generateRiskMatrix();
+                
+                // Load innovation assessment
+                if (data.innovationLevel) {
+                    selectInnovationLevel(document.querySelector(`.innovation-level[onclick*="${data.innovationLevel}"]`), data.innovationLevel);
+                }
+                document.getElementById('innovation-description').value = data.innovationDescription || '';
+
+                // Load compliance
+                if (data.compliance) {
+                    document.querySelectorAll('#innovation .compliance-table tbody tr').forEach((row, index) => {
+                        if (data.compliance[index]) {
+                            row.children[1].querySelector('input').value = data.compliance[index].reference || '';
+                            row.children[2].querySelector('select').value = data.compliance[index].suitability || '';
+                        }
+                    });
+                }
+
+                // Populate response strategies after risks are loaded
+                setTimeout(updateResponseStrategies, 100); // Small delay to ensure risks are rendered
+
+                if (data.risks) {
+                    // This part needs to be run AFTER updateResponseStrategies has populated the elements
+                    // A better way would be to pass the data directly to updateResponseStrategies
+                    data.risks.forEach(risk => {
+                        if (risk.strategy) {
+                            const strategyItem = document.querySelector(`#response-strategies .strategy-item .editable[contenteditable="true"][data-risk-description="${risk.description}"]`);
+                            if (strategyItem) {
+                                strategyItem.parentNode.querySelector('textarea').value = risk.strategy;
+                            }
+                        }
+                    });
+                }
+
+                showMessage('✅ נתוני דוח קודמים נטענו בהצלחה!');
+            }
+        }
+
+        function sendReport() {
+            showMessage('📧 פונקציית שליחת דוח לא ממומשת כרגע.');
+        }
+      // Innovation Assessment Functions
+        function calculateInnovationScore() {
+            // Check pedagogy innovations
+            const pedagogyChecked = [
+                'pedagogy-seasons', 'pedagogy-interdisciplinary', 'pedagogy-realworld',
+                'pedagogy-mentoring', 'pedagogy-languages', 'pedagogy-active'
+            ].filter(id => document.getElementById(id)?.checked).length;
+
+            // Check organizational innovations
+            const orgChecked = [
+                'org-multiage', 'org-choice', 'org-independent',
+                'org-continuous', 'org-personal', 'org-democratic', 'org-assessment'
+            ].filter(id => document.getElementById(id)?.checked).length;
+
+            // Check resource innovations
+            const resourcesChecked = [
+                'resources-experts', 'resources-flexible', 'resources-compensation', 'resources-informal'
+            ].filter(id => document.getElementById(id)?.checked).length;
+
+            // Check infrastructure innovations
+            const infraChecked = [
+                'infra-hybrid', 'infra-tech', 'infra-sites', 'infra-informal'
+            ].filter(id => document.getElementById(id)?.checked).length;
+
+            // Calculate weighted score
+            const totalChecked = pedagogyChecked + orgChecked + resourcesChecked + infraChecked;
+            const maxPossible = 21; // Total number of innovation items
+            
+            // Calculate score (1-25 scale)
+            let innovationScore = Math.round((totalChecked / maxPossible) * 25);
+            if (innovationScore === 0 && totalChecked > 0) innovationScore = 1;
+
+            // Update innovation level based on score
+            let level = 'low';
+            if (innovationScore >= 17) level = 'high';
+            else if (innovationScore >= 9) level = 'medium';
+
+            // Update project data
+            projectData.innovationScore = innovationScore;
+            projectData.innovationLevel = level;
+
+            // Update UI
+            updateInnovationDisplay();
+            updateInnovationLevelSelection(level);
+            generateRegulationRecommendations();
+            
+            // Show success message
+            showMessage(`✅ ציון החדשנות חושב: ${innovationScore}/25`);
+        }
+
+        function updateInnovationLevelSelection(level) {
+            // Remove selected class from all levels
+            const levels = document.querySelectorAll('.innovation-level');
+            levels.forEach(l => l.classList.remove('selected'));
+            
+            // Add selected class to appropriate level
+            const levelMap = {
+                'low': 0,
+                'medium': 1,
+                'high': 2
+            };
+            
+            if (levels[levelMap[level]]) {
+                levels[levelMap[level]].classList.add('selected');
+            }
+        }
+
+        function generateRegulationRecommendations() {
+            const recommendationsDiv = document.getElementById('regulation-recommendations');
+            if (!recommendationsDiv) return;
+
+            let recommendations = [];
+            
+            // Check for high-regulation items
+            const highRegulationItems = [
+                { id: 'pedagogy-languages', text: 'לימוד שפות מגיל הגן דורש בדיקה התפתחותית' },
+                { id: 'org-multiage', text: 'למידה רב-גילאית דורשת אישור מיוחד מהמפמ"ר' },
+                { id: 'resources-experts', text: 'מומחים ללא תעודת הוראה דורשים אישור מיוחד' },
+                { id: 'infra-hybrid', text: 'למידה היברידית במשמרות טרם אושרה - דורש אישור חדשנות' },
+                { id: 'infra-tech', text: 'כלים טכנולוגיים לא מאושרים דורשים בדיקת אבטחה מיוחדת' }
+            ];
+
+            // Check which high-regulation items are selected
+            highRegulationItems.forEach(item => {
+                const checkbox = document.getElementById(item.id);
+                if (checkbox?.checked) {
+                    recommendations.push(`🔴 ${item.text}`);
+                }
+            });
+
+            // Check compliance levels
+            const complianceSelects = document.querySelectorAll('.compliance-table select');
+            let lowCompliance = 0;
+            complianceSelects.forEach(select => {
+                if (select.value === 'low') lowCompliance++;
+            });
+
+            if (lowCompliance > 0) {
+                recommendations.push(`⚠️ זוהו ${lowCompliance} תחומים עם התאמה נמוכה לעקרונות החדשנות האחראית`);
+            }
+
+            // General recommendations based on innovation score
+            if (projectData.innovationScore >= 17) {
+                recommendations.push('🟡 רמת חדשנות גבוהה - נדרש אישור ועדת אסדרת חדשנות');
+                recommendations.push('📋 הכן תיעוד מפורט של התהליכים החדשניים');
+                recommendations.push('👥 קבע פגישה מקדימה עם נציגי האגף לחדשנות וטכנולוגיה');
+            } else if (projectData.innovationScore >= 9) {
+                recommendations.push('🟠 רמת חדשנות בינונית - בדוק צורך באישורים ברמה המחוזית');
+                recommendations.push('📝 תעד את השינויים המתוכננים ביחס לרגולציה הקיימת');
+            } else {
+                recommendations.push('🟢 רמת חדשנות נמוכה - ניתן להמשיך במסגרת הרגולציה הקיימת');
+            }
+
+            // Display recommendations
+            if (recommendations.length > 0) {
+                recommendationsDiv.innerHTML = `
+                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; border-left: 4px solid #3498db;">
+                        <h4 style="margin-bottom: 10px; color: #2c3e50;">המלצות לתהליך האסדרה:</h4>
+                        <ul style="margin: 0; padding-right: 20px;">
+                            ${recommendations.map(rec => `<li style="margin-bottom: 8px;">${rec}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+            } else {
+                recommendationsDiv.innerHTML = `
+                    <div style="background: #d5f4e6; padding: 15px; border-radius: 8px; border-left: 4px solid #27ae60;">
+                        <p style="margin: 0; color: #27ae60; font-weight: bold;">✅ לא זוהו סוגיות מיוחדות לאסדרה</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Enhanced innovation level selection
+        function selectInnovationLevel(element, level) {
+            // Remove selected class from all innovation levels
+            const levels = document.querySelectorAll('.innovation-level');
+            levels.forEach(l => l.classList.remove('selected'));
+            
+            // Add selected class to clicked element
+            element.classList.add('selected');
+            currentInnovationLevel = level;
+            projectData.innovationLevel = level;
+            
+            // Update innovation score based on level (manual override)
+            let score = 0;
+            switch(level) {
+                case 'low': score = 5; break;
+                case 'medium': score = 13; break;
+                case 'high': score = 21; break;
+            }
+            
+            projectData.innovationScore = score;
+            updateInnovationDisplay();
+            generateRegulationRecommendations();
+        }
+
+        // Auto-calculate innovation score when checkboxes change
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add event listeners to all innovation checkboxes
+            const innovationCheckboxes = document.querySelectorAll('input[type="checkbox"][id^="pedagogy-"], input[type="checkbox"][id^="org-"], input[type="checkbox"][id^="resources-"], input[type="checkbox"][id^="infra-"]');
+            
+            innovationCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    setTimeout(calculateInnovationScore, 100);
+                });
+            });
+
+            // Add event listeners to compliance selects
+            const complianceSelects = document.querySelectorAll('.compliance-table select');
+            complianceSelects.forEach(select => {
+                select.addEventListener('change', function() {
+                    setTimeout(generateRegulationRecommendations, 100);
+                });
+            });
+        });
+
+        // Enhanced report generation with innovation assessment
+        function generateInnovationReport() {
+            updateProjectData();
+            
+            const pedagogyChecked = [
+                'pedagogy-seasons', 'pedagogy-interdisciplinary', 'pedagogy-realworld',
+                'pedagogy-mentoring', 'pedagogy-languages', 'pedagogy-active'
+            ].filter(id => document.getElementById(id)?.checked);
+
+            const orgChecked = [
+                'org-multiage', 'org-choice', 'org-independent',
+                'org-continuous', 'org-personal', 'org-democratic', 'org-assessment'
+            ].filter(id => document.getElementById(id)?.checked);
+
+            const resourcesChecked = [
+                'resources-experts', 'resources-flexible', 'resources-compensation', 'resources-informal'
+            ].filter(id => document.getElementById(id)?.checked);
+
+            const infraChecked = [
+                'infra-hybrid', 'infra-tech', 'infra-sites', 'infra-informal'
+            ].filter(id => document.getElementById(id)?.checked);
+
+            return {
+                innovationScore: projectData.innovationScore,
+                innovationLevel: projectData.innovationLevel,
+                innovationDescription: projectData.innovationDescription,
+                complianceLevel: projectData.complianceLevel,
+                selectedInnovations: {
+                    pedagogy: pedagogyChecked.length,
+                    organization: orgChecked.length,
+                    resources: resourcesChecked.length,
+                    infrastructure: infraChecked.length,
+                    total: pedagogyChecked.length + orgChecked.length + resourcesChecked.length + infraChecked.length
+                }
+            };
+        }
+
+        // Initial calls
+        generateRiskMatrix();
+        calculateOverallRiskStats(); // To set initial 0 counts
+    </script>
+</body>
+</html>
